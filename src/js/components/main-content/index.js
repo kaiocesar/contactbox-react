@@ -1,28 +1,27 @@
 'use strict'
 import React from 'react'
-
+import Container from '@material-ui/core/Container';
 import  Contacts from '../contacts'
+import NewContact from '../contacts/new'
 
 import {    
     BrowserRouter as Router,
-    Link,
     Route, 
     Switch
 } from 'react-router-dom'
 
-
 const MainContent = () => (
     <Router>
-        <div>
-            <ul>
-                <li><Link to="/">Contacts</Link></li>
-            </ul>
+        <Container fixed>                    
             <Switch>
-                <Route path="/">
+                <Route exact path="/novo">
+                    <NewContact />
+                </Route>
+                <Route exact path="/">
                     <Contacts />
                 </Route>
             </Switch>
-        </div>
+        </Container>
     </Router>
 )        
 export default MainContent
