@@ -1,12 +1,10 @@
 import React from 'react'
+import MainContent from './main-content'
 
-const App = () => {
+const App = () => (
+	<div>
+		<MainContent />
+	</div>
+)
 
-	return (
-		<div>
-			<h1>Hello react 123</h1>
-		</div>
-	)
-}
-
-export default App;
+export default App
