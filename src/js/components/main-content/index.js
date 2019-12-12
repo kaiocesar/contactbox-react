@@ -23,7 +23,7 @@ const MainContent = () => (
             </Row>                
             <Row>
                 <Switch>
-                    <Route exact path="/contacts/:id/edit">
+                    <Route path="/contacts/:id/edit">
                         <EditContact />
                     </Route>
                     <Route exact path="/contacts/new">

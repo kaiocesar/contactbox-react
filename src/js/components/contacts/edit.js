@@ -1,12 +1,14 @@
 'use strict'
 import React from 'react'
+import { BACKEND_ENDPOINT } from '../constants'
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import axios from 'axios'
-import { Link, useParams } from 'react-router-dom'
+
+import { Link, withRouter } from 'react-router-dom'
 
 class EditContact extends React.Component {
 
@@ -18,16 +20,45 @@ class EditContact extends React.Component {
             activity: '',
             email: ''
         }
-        
     }
 
     componentDidMount(){
+        const id = this.props.match.params.id;
+        this.fetchData(id);
+    }
+
+    handleChange(event) {
+        this.setState({[event.target.name]: event.target.value})        
+    }
+
+    handleSubmit(event) {
+    }
+
+    fetchData(id) {
         
+        axios.get(`${BACKEND_ENDPOINT}contacts/${id}`)
+            .then((response) => {
+                if(response.statusText=="OK") {
+                    return response.data
+                } else {
+                    throw new Error('Erro na consulta dos dados')
+                }
+            })
+            .then((data) => {
+                const { name, mobile, activity, email } = data
+                this.setState({
+                    name,
+                    mobile,
+                    activity, 
+                    email
+                })
+            })
+            .catch((error)=>{
+                console.log(error)
+            })
     }
 
     render() {
-        
-        
         return(
             <Container>
                 <Row>
@@ -35,44 +66,54 @@ class EditContact extends React.Component {
                     <Link className="float-right" to="/">Voltar</Link>
                 </Row>
                 <Row>
-                    <Form>
-                        <Form.Group as={Row} controlId="formHorizontalNome">
-                            <Form.Label column sm={2}>
-                            Nome
-                            </Form.Label>
-                            <Col sm={10}>
-                            <Form.Control type="text" placeholder="Nome" />
+                <Form onSubmit={this.handleSubmit}>
+                        <Form.Group as={Row} controlId="iptCtrlNome">
+                            <Form.Label column sm={3}> Nome </Form.Label>
+                            <Col sm={9}>
+                                <Form.Control
+                                    type="text" 
+                                    name="name"
+                                    value={this.state.name}
+                                    onChange={this.handleChange} />
                             </Col>
                         </Form.Group>
 
-                        <Form.Group as={Row} controlId="formHorizontalCelular">
-                            <Form.Label column sm={2}>
-                            Celular
-                            </Form.Label>
-                            <Col sm={10}>
-                            <Form.Control type="text" placeholder="Celular" />
+                        <Form.Group as={Row} controlId="iptCtrlCelular">
+                            <Form.Label column sm={3}>Celular </Form.Label>
+                            <Col sm={9}>
+                                <Form.Control
+                                    type="text"
+                                    name="mobile"
+                                    value={this.state.mobile}
+                                    onChange={this.handleChange} />
                             </Col>
                         </Form.Group>
-                        <Form.Group as={Row} controlId="formHorizontalAtividade">
-                            <Form.Label column sm={2}>
-                            Atividade
-                            </Form.Label>
-                            <Col sm={10}>
-                            <Form.Control type="text" placeholder="Atividade" />
+
+                        <Form.Group as={Row} controlId="iptCtrlAtividade">
+                            <Form.Label column sm={3}>Atividade </Form.Label>
+                            <Col sm={9}>
+                                <Form.Control
+                                    type="text"
+                                    name="activity"
+                                    value={this.state.activity}
+                                    onChange={this.handleChange} />
                             </Col>
                         </Form.Group>
-                        <Form.Group as={Row} controlId="formHorizontalEmail">
-                            <Form.Label column sm={2}>
-                            Email
-                            </Form.Label>
-                            <Col sm={10}>
-                            <Form.Control type="email" placeholder="Email" />
+
+                        <Form.Group as={Row} controlId="iptCtrlEmail">
+                            <Form.Label column sm={3}>Email </Form.Label>
+                            <Col sm={9}>
+                                <Form.Control
+                                    type="email"
+                                    name="email"
+                                    value={this.state.email}
+                                    onChange={this.handleChange} />
                             </Col>
                         </Form.Group>
                         
                         <Form.Group as={Row}>
-                            <Col sm={{ span: 10, offset: 2 }}>
-                            <Button type="submit">Cadastrar</Button>
+                            <Col sm={{ span: 9, offset: 3 }}>
+                                <Button className="float-right" type="submit">Cadastrar</Button>
                             </Col>
                         </Form.Group>
                     </Form>
@@ -83,4 +124,4 @@ class EditContact extends React.Component {
     }
 }
 
-export default EditContact
+export default withRouter(EditContact)
