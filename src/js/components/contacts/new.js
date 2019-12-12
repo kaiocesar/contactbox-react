@@ -5,7 +5,10 @@ class NewContact extends React.Component {
 
     render() {
         return (
-            <h1>New contact</h1>
+            <div>
+                <h1>New contact</h1>
+
+            </div>
         )
     }
 }
