@@ -41,6 +41,15 @@ class NewContact extends React.Component {
         return `${yyyy}-${mm}-${dd}`
     }
 
+    resetFields() {
+        this.setState({
+            name: '',
+            mobile: '',
+            activity: '',
+            email: ''
+        })
+    }
+
     handleChange(event) {
         this.setState({[event.target.name]: event.target.value})        
     }
@@ -57,6 +66,7 @@ class NewContact extends React.Component {
             "status": true
         })
         .then((response) => {
+            this.resetFields()
             this.notify("Adicionado!")
         })
         .catch((error) => {
@@ -67,68 +77,74 @@ class NewContact extends React.Component {
 
     render() {
         return (
-            <Container>
+            <div>
                 <Row>
-                    <h5>Cadastrar Contato</h5>
+                    <Col sm="12">
+                        <h5><strong>Novo contato</strong></h5>
+                    </Col>
                 </Row>
                 <Row>
-                    <Form onSubmit={this.handleSubmit}>
-                        <Form.Group as={Row} controlId="iptCtrlNome">
-                            <Form.Label column sm={3}> Nome </Form.Label>
-                            <Col sm={9}>
-                                <Form.Control
-                                    type="text" 
-                                    name="name"
-                                    value={this.state.value}
-                                    onChange={this.handleChange} />
-                            </Col>
-                        </Form.Group>
+                    <Col sm="12">
+                        <br/>
+                        <Form onSubmit={this.handleSubmit}>
+                            <Form.Group as={Row} controlId="iptCtrlNome">
+                                <Form.Label column sm={2}> Nome </Form.Label>
+                                <Col sm={10}>
+                                    <Form.Control
+                                        type="text" 
+                                        name="name"
+                                        value={this.state.name}
+                                        onChange={this.handleChange} />
+                                </Col>
+                            </Form.Group>
 
-                        <Form.Group as={Row} controlId="iptCtrlCelular">
-                            <Form.Label column sm={3}>Celular </Form.Label>
-                            <Col sm={9}>
-                                <Form.Control
-                                    type="text"
-                                    name="mobile"
-                                    value={this.state.mobile}
-                                    onChange={this.handleChange} />
-                            </Col>
-                        </Form.Group>
+                            <Form.Group as={Row} controlId="iptCtrlCelular">
+                                <Form.Label column sm={2}>Celular </Form.Label>
+                                <Col sm={10}>
+                                    <Form.Control
+                                        type="text"
+                                        name="mobile"
+                                        value={this.state.mobile}
+                                        onChange={this.handleChange} />
+                                </Col>
+                            </Form.Group>
 
-                        <Form.Group as={Row} controlId="iptCtrlAtividade">
-                            <Form.Label column sm={3}>Atividade </Form.Label>
-                            <Col sm={9}>
-                                <Form.Control
-                                    type="text"
-                                    name="activity"
-                                    value={this.state.activity}
-                                    onChange={this.handleChange} />
-                            </Col>
-                        </Form.Group>
+                            <Form.Group as={Row} controlId="iptCtrlAtividade">
+                                <Form.Label column sm={2}>Atividade </Form.Label>
+                                <Col sm={10}>
+                                    <Form.Control
+                                        type="text"
+                                        name="activity"
+                                        value={this.state.activity}
+                                        onChange={this.handleChange} />
+                                </Col>
+                            </Form.Group>
 
-                        <Form.Group as={Row} controlId="iptCtrlEmail">
-                            <Form.Label column sm={3}>Email </Form.Label>
-                            <Col sm={9}>
-                                <Form.Control
-                                    type="email"
-                                    name="email"
-                                    value={this.state.email}
-                                    onChange={this.handleChange} />
-                            </Col>
-                        </Form.Group>
-                        
-                        <Form.Group as={Row}>
-                            <Col sm="3">
-                                <Link to="/">Voltar</Link>
-                            </Col>
-                            <Col sm="9">
-                                <Button className="float-right" type="submit">Cadastrar</Button>
-                            </Col>
-                        </Form.Group>
-                    </Form>
+                            <Form.Group as={Row} controlId="iptCtrlEmail">
+                                <Form.Label column sm={2}>Email </Form.Label>
+                                <Col sm={10}>
+                                    <Form.Control
+                                        type="email"
+                                        name="email"
+                                        value={this.state.email}
+                                        onChange={this.handleChange} />
+                                </Col>
+                            </Form.Group>
+                            
+                            <Form.Group as={Row}>
+                                <Col sm="3">
+                                <br/>
+                                    <Link to="/">Voltar</Link>
+                                </Col>
+                                <Col sm="9">
+                                    <Button className="float-right" type="submit">Cadastrar</Button>
+                                </Col>
+                            </Form.Group>
+                        </Form>
+                    </Col>
                 </Row>
                 <ToastContainer />
-            </Container>
+            </div>
         )
     }
 }

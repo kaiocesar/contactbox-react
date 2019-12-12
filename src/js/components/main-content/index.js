@@ -6,6 +6,7 @@ import Col from 'react-bootstrap/Col'
 import  Contacts from '../contacts'
 import NewContact from '../contacts/new'
 import EditContact from '../contacts/edit'
+import { FaBookOpen } from 'react-icons/fa'
 
 import {    
     BrowserRouter as Router,
@@ -16,22 +17,21 @@ import {
 const MainContent = () => (
     <Router>
         <Container>
-            <Row style={{paddingBottom: '1rem', borderBottom: '1px solid #CCC', textAlign:'center'}}>
-                <h1>Agenda</h1>
+            <Row style={{padding: '1rem', borderBottom: '1px solid #CCC', textAlign:'center', marginBottom: "1rem"}}>
+                <Col><h1><FaBookOpen /> Agenda</h1></Col>
             </Row>                
-            <Row>
-                <Switch>
-                    <Route path="/contacts/:id/edit">
-                        <EditContact />
-                    </Route>
-                    <Route exact path="/contacts/new">
-                        <NewContact />
-                    </Route>
-                    <Route exact path="/">
-                        <Contacts />
-                    </Route>
-                </Switch>
-            </Row>
+            
+            <Switch>
+                <Route path="/contacts/:id/edit">
+                    <EditContact />
+                </Route>
+                <Route exact path="/contacts/new">
+                    <NewContact />
+                </Route>
+                <Route exact path="/">
+                    <Contacts />
+                </Route>
+            </Switch>
         </Container>
     </Router>
 )        
