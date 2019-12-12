@@ -7,6 +7,7 @@ import Col from 'react-bootstrap/Col'
 import Table from 'react-bootstrap/Table'
 import Form from 'react-bootstrap/Form'
 import Container from 'react-bootstrap/Container'
+import Button from 'react-bootstrap/Button'
 
 
 class Contact extends React.Component {
@@ -17,6 +18,7 @@ class Contact extends React.Component {
             isLoading: false,
             error: null
         }
+        this.handleClick = this.handleClick.bind(this)
     }
 
     componentDidMount() {
@@ -38,16 +40,20 @@ class Contact extends React.Component {
             })
     }
 
+    handleClick(event) {
+        console.log(event.target.value)
+    }
+
     render() {
         const { data } = this.state
 
         return (
             <Container>
                 <Row style={{padding: '1rem'}}>
-                    <Col>
-                        <Link to="/contacts/new">Adicionar contato</Link>
+                    <Col sm="10">
+                        <Button variant="primary" href="/contacts/new">Adicionar novo contato</Button>
                     </Col>
-                    <Col>
+                    <Col sm="2">
                         <Form>
                             <Form.Row>
                                 <Col>
@@ -75,9 +81,13 @@ class Contact extends React.Component {
                                     <td>{row.activity}</td>
                                     <td>{row.last_contact}</td>
                                     <td align="right">
-                                        <Link to={`/contacts/${row.id}/edit`}>Editar</Link> | 
-                                        <a target="_blank" href={`https://api.whatsapp.com/send?phone=${row.mobile}`}>Whatsapp</a> | 
-                                        <a target="_blank" href={`mailto:${row.mobile}`}>Email</a>
+                                        <Button variant="link" href={`/contacts/${row.id}/edit`}>Editar</Button>
+
+                                        <Button variant="link" target="_blank" href={`https://api.whatsapp.com/send?phone=${row.mobile}`}>Whatsapp</Button>
+
+                                        <Button variant="link" target="_blank" href={`mailto:${row.mobile}`}>Email</Button>
+
+                                        <Button variant="link" onClick={this.handleClick} value={row.id}>Deletar</Button>
                                     </td>
                                 </tr>
                             ))}

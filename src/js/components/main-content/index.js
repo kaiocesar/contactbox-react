@@ -16,10 +16,8 @@ import {
 const MainContent = () => (
     <Router>
         <Container>
-            <Row>
-                <Col md lg="1">
-                    <h1>Agenda</h1>
-                </Col>
+            <Row style={{paddingBottom: '1rem', borderBottom: '1px solid #CCC', textAlign:'center'}}>
+                <h1>Agenda</h1>
             </Row>                
             <Row>
                 <Switch>
