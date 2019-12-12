@@ -1,6 +1,9 @@
 import React from 'react'
 
 import { Link } from 'react-router-dom'
+import Col from 'react-bootstrap/Col'
+import Table from 'react-bootstrap/Table'
+import Image from 'react-bootstrap/Image'
 
 import axios from 'axios'
 
@@ -37,38 +40,35 @@ class Contact extends React.Component {
         const { data } = this.state
 
         return (
-            <div>
-                <React.Fragment>
-                <Typography component="h2" variant="h6" color="primary" gutterBottom>
-                    Contacts
-                </Typography>
-                
-                <div>
-                    <Link to="/novo" variant="contained" color="primary" href="/novo">Add new</Link>
-                </div>
+            <Table>
+                <thead>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Activity</th>
+                    <th>Last contact</th>
+                    <th></th>
+                </thead>
 
-                <Table size="small">
-                    <TableHead>
-                    <TableRow>
-                        <TableCell>Contact</TableCell>
-                        <TableCell>Last contact date</TableCell>
-                        <TableCell align="right"></TableCell>
-                    </TableRow>
-                    </TableHead>
-                    <TableBody>
+                <tbody>
                     {data.map(row => (
-                        <TableRow key={row.id}>
-                        <TableCell>{row.name}</TableCell>
-                        <TableCell>{row.last_contact}</TableCell>
-                        <TableCell align="right">{row.mobile}</TableCell>
-                        </TableRow>
+                        <tr key={row.id}>
+                        <td>
+                        <Col xs={6} md={4}>
+                            <Image src="holder.js/171x180" roundedCircle />
+                        </Col>
+                        </td>
+                        <td>{row.name}</td>
+                        <td>{row.activity}</td>
+                        <td>{row.last_contact}</td>
+                        <td align="right">
+                            <Link to={`/contacts/${row.id}`}>Edit</Link> | 
+                            <a target="_blank" href={`https://api.whatsapp.com/send?phone=${row.mobile}`}>Whatsapp</a> | 
+                            <a target="_blank" href={`mailto:${row.mobile}`}>Email</a>
+                        </td>
+                        </tr>
                     ))}
-                    </TableBody>
-                </Table>
-                
-                </React.Fragment>
-            </div>
-            
+                </tbody>
+            </Table>
         )
     }
 }
