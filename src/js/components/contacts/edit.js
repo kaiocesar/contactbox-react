@@ -28,8 +28,10 @@ class EditContact extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
-    notify() {
-        toast("Wow so easy!")
+    notify(msg) {
+        toast.success(msg, {
+            position: toast.POSITION.TOP_CENTER
+        })
     }
 
     componentDidMount(){
@@ -51,7 +53,7 @@ class EditContact extends React.Component {
             "email" : email
         })
         .then((response) => {
-            this.notify()
+            this.notify("Atualizado!")
             console.log(response)
         })
         .catch((error) => {
@@ -88,8 +90,7 @@ class EditContact extends React.Component {
         return(
             <Container>
                 <Row>
-                    <h4>Editar Contato</h4>
-                    <Link className="float-right" to="/">Voltar</Link>
+                    <h5>Editar Contato</h5>
                 </Row>
                 <Row>
                 <Form onSubmit={this.handleSubmit}>
@@ -138,7 +139,10 @@ class EditContact extends React.Component {
                         </Form.Group>
                         
                         <Form.Group as={Row}>
-                            <Col sm={{ span: 9, offset: 3 }}>
+                            <Col sm="3">
+                                <Link to="/">Voltar</Link>
+                            </Col>
+                            <Col sm="9">
                                 <Button className="float-right" type="submit">Atualizar</Button>
                             </Col>
                         </Form.Group>

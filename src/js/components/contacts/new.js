@@ -7,6 +7,10 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import axios from 'axios'
+
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
 import { Link } from 'react-router-dom'
 
 class NewContact extends React.Component {
@@ -21,6 +25,12 @@ class NewContact extends React.Component {
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+    }
+
+    notify(msg) {
+        toast.success(msg, {
+            position: toast.POSITION.TOP_CENTER
+        })
     }
 
     datenow() {
@@ -47,7 +57,7 @@ class NewContact extends React.Component {
             "status": true
         })
         .then((response) => {
-            console.log(response)
+            this.notify("Adicionado!")
         })
         .catch((error) => {
             console.log(error)
@@ -59,10 +69,8 @@ class NewContact extends React.Component {
         return (
             <Container>
                 <Row>
-                    <h4>Cadastrar Contato</h4>
-                    <Link className="float-right" to="/">Voltar</Link>
+                    <h5>Cadastrar Contato</h5>
                 </Row>
-                
                 <Row>
                     <Form onSubmit={this.handleSubmit}>
                         <Form.Group as={Row} controlId="iptCtrlNome">
@@ -110,12 +118,16 @@ class NewContact extends React.Component {
                         </Form.Group>
                         
                         <Form.Group as={Row}>
-                            <Col sm={{ span: 9, offset: 3 }}>
+                            <Col sm="3">
+                                <Link to="/">Voltar</Link>
+                            </Col>
+                            <Col sm="9">
                                 <Button className="float-right" type="submit">Cadastrar</Button>
                             </Col>
                         </Form.Group>
                     </Form>
                 </Row>
+                <ToastContainer />
             </Container>
         )
     }
