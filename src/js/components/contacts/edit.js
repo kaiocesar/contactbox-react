@@ -1,16 +1,14 @@
 'use strict'
+
 import React from 'react'
 import { BACKEND_ENDPOINT } from '../constants'
-import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import axios from 'axios'
-
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-
 import { Link, withRouter } from 'react-router-dom'
 
 class EditContact extends React.Component {

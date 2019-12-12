@@ -1,14 +1,14 @@
+'use strict'
+
 import React from 'react'
 import { BACKEND_ENDPOINT, WHATSAPP_URL } from '../constants'
-import { Link } from 'react-router-dom'
 import axios from 'axios'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Table from 'react-bootstrap/Table'
 import Form from 'react-bootstrap/Form'
-import Container from 'react-bootstrap/Container'
 import Button from 'react-bootstrap/Button'
-import { FaWhatsapp, FaTrash, FaPen, FaPhone } from 'react-icons/fa'
+import { FaWhatsapp, FaTrash, FaPen } from 'react-icons/fa'
 import { IoMdMail } from 'react-icons/io'
 
 class Contact extends React.Component {
