@@ -17,7 +17,6 @@ class NewContact extends React.Component {
             mobile: '',
             activity: '',
             email: ''
-
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)

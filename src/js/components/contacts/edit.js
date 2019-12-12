@@ -5,14 +5,34 @@ import Form from 'react-bootstrap/Form'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
-
+import axios from 'axios'
+import { Link, useParams } from 'react-router-dom'
 
 class EditContact extends React.Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            name: '',
+            mobile: '',
+            activity: '',
+            email: ''
+        }
+        
+    }
+
+    componentDidMount(){
+        
+    }
+
     render() {
+        
+        
         return(
             <Container>
                 <Row>
                     <h4>Editar Contato</h4>
+                    <Link className="float-right" to="/">Voltar</Link>
                 </Row>
                 <Row>
                     <Form>
