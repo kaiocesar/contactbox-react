@@ -5,6 +5,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import  Contacts from '../contacts'
 import NewContact from '../contacts/new'
+import EditContact from '../contacts/edit'
 
 import {    
     BrowserRouter as Router,
@@ -22,7 +23,10 @@ const MainContent = () => (
             </Row>                
             <Row>
                 <Switch>
-                    <Route exact path="/novo">
+                    <Route exact path="/contacts/:id/edit">
+                        <EditContact />
+                    </Route>
+                    <Route exact path="/contacts/new">
                         <NewContact />
                     </Route>
                     <Route exact path="/">
