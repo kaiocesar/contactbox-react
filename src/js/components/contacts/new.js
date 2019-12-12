@@ -1,5 +1,6 @@
 'use strict'
 import React from 'react'
+import { BACKEND_ENDPOINT } from '../constants'
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import Row from 'react-bootstrap/Row'
@@ -37,7 +38,7 @@ class NewContact extends React.Component {
     handleSubmit(event) {
         const { name, activity, mobile, email } = this.state
 
-        axios.post('http://localhost:8000/api/contacts',{
+        axios.post( `${BACKEND_ENDPOINT}contacts` ,{
             "name": name,
             "activity" : activity,
             "mobile" : mobile,

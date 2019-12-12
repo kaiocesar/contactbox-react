@@ -8,6 +8,9 @@ import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import axios from 'axios'
 
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
 import { Link, withRouter } from 'react-router-dom'
 
 class EditContact extends React.Component {
@@ -15,11 +18,18 @@ class EditContact extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            id: '',
             name: '',
             mobile: '',
             activity: '',
             email: ''
         }
+        this.handleChange = this.handleChange.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
+    }
+
+    notify() {
+        toast("Wow so easy!")
     }
 
     componentDidMount(){
@@ -32,11 +42,26 @@ class EditContact extends React.Component {
     }
 
     handleSubmit(event) {
+        const { id, name, activity, mobile, email } = this.state
+
+        axios.put( `${BACKEND_ENDPOINT}contacts/${id}` ,{
+            "name": name,
+            "activity" : activity,
+            "mobile" : mobile,
+            "email" : email
+        })
+        .then((response) => {
+            this.notify()
+            console.log(response)
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+        event.preventDefault()
     }
 
     fetchData(id) {
-        
-        axios.get(`${BACKEND_ENDPOINT}contacts/${id}`)
+        axios.get( `${BACKEND_ENDPOINT}contacts/${id}`)
             .then((response) => {
                 if(response.statusText=="OK") {
                     return response.data
@@ -45,8 +70,9 @@ class EditContact extends React.Component {
                 }
             })
             .then((data) => {
-                const { name, mobile, activity, email } = data
+                const { id, name, mobile, activity, email } = data
                 this.setState({
+                    id,
                     name,
                     mobile,
                     activity, 
@@ -113,11 +139,12 @@ class EditContact extends React.Component {
                         
                         <Form.Group as={Row}>
                             <Col sm={{ span: 9, offset: 3 }}>
-                                <Button className="float-right" type="submit">Cadastrar</Button>
+                                <Button className="float-right" type="submit">Atualizar</Button>
                             </Col>
                         </Form.Group>
                     </Form>
                 </Row>
+                <ToastContainer />
             </Container>
         )
 
