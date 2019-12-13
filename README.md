@@ -1,5 +1,7 @@
 # ContactBox React
 
+A app está consumindo o backend que está executando no heroku, então pode ocorrer um certo delay nas primeiras consultas.
+
 #### requisitos
 - nodejs >= v10.16.x
 - yarn or npm
