@@ -10,8 +10,14 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import { FaWhatsapp, FaTrash, FaPen } from 'react-icons/fa'
 import { IoMdMail } from 'react-icons/io'
+import { confirmAlert } from 'react-confirm-alert'
+import 'react-confirm-alert/src/react-confirm-alert.css'
+
+
 
 class Contact extends React.Component {
+    
+
     constructor(props){
         super(props)
         this.state = {
@@ -20,6 +26,7 @@ class Contact extends React.Component {
             error: null
         }
         this.handleClick = this.handleClick.bind(this)
+        
     }
 
     componentDidMount() {
@@ -41,8 +48,40 @@ class Contact extends React.Component {
             })
     }
 
-    handleClick(event) {
-        console.log(event.target.value)
+
+    deleteContact(id) {
+        axios.delete( `${BACKEND_ENDPOINT}contacts/${id}` )
+        .then((response) => {
+            
+            const newState = this.state
+            const index = newState.data.findIndex(c => c.id === id)
+            if(id === -1) return;
+            newState.data.splice(index, 1)
+            this.setState(newState)
+            this.notify("Excluido!")
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+    }
+
+    handleClick(id) {
+        
+        const optionConfirmation = {
+            title: 'Confirmação',
+            message: 'Você tem certeza que deseja deletar esse registro?',
+            buttons: [
+              {
+                label: 'Sim',
+                onClick: () => this.deleteContact(id)
+              },
+              {
+                label: 'Não',
+                onClick: () => console.log('out...')
+              }
+            ]
+        }
+        confirmAlert(optionConfirmation)
     }
 
     render() {
@@ -95,8 +134,8 @@ class Contact extends React.Component {
                                                 <IoMdMail />
                                             </Button>
 
-                                            <Button variant="link" onClick={this.handleClick} value={row.id}>
-                                                <FaTrash />
+                                            <Button variant="link">
+                                                <FaTrash onClick={() => this.handleClick(row.id)} />
                                             </Button>
                                         </td>
                                     </tr>
