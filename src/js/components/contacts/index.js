@@ -23,10 +23,12 @@ class Contact extends React.Component {
         this.state = {
             data: [],
             isLoading: false,
-            error: null
+            error: null,
+            search: ''
         }
         this.handleClick = this.handleClick.bind(this)
-        
+        this.handleSubmitSearch = this.handleSubmitSearch.bind(this)
+        this.handleChangeSearch = this.handleChangeSearch.bind(this)
     }
 
     componentDidMount() {
@@ -47,7 +49,6 @@ class Contact extends React.Component {
                 console.log(`Esse é o erro: ${error}`)
             })
     }
-
 
     deleteContact(id) {
         axios.delete( `${BACKEND_ENDPOINT}contacts/${id}` )
@@ -84,6 +85,28 @@ class Contact extends React.Component {
         confirmAlert(optionConfirmation)
     }
 
+    handleSubmitSearch(event) {
+        let search = this.state.search
+        
+        axios.get( `${BACKEND_ENDPOINT}contacts?search=${search}`)
+            .then((response) => {
+                if(response.statusText=="OK") {
+                    return response.data
+                } else {
+                    throw new Error('Erro na consulta dos dados')
+                }
+            })
+            .then((data) => this.setState({ data: data, isLoading: false }))
+            .catch((error)=>{
+                console.log(error)
+            })
+        event.preventDefault()
+    }
+
+    handleChangeSearch(event) {
+        this.setState({[event.target.name]: event.target.value})
+    }
+
     render() {
         const { data } = this.state
         
@@ -94,10 +117,10 @@ class Contact extends React.Component {
                         <Button variant="primary" href="/contacts/new">Adicionar novo contato</Button>
                     </Col>
                     <Col sm="3">
-                        <Form>
+                        <Form onSubmit={this.handleSubmitSearch}>
                             <Form.Row>
                                 <Col>
-                                    <Form.Control placeholder="Buscar" />
+                                    <Form.Control placeholder="Buscar" name="search" value={this.state.search} onChange={this.handleChangeSearch} />
                                 </Col>
                             </Form.Row>
                         </Form>
