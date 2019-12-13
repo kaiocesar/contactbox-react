@@ -26,10 +26,16 @@ class EditContact extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
-    notify(msg) {
-        toast.success(msg, {
-            position: toast.POSITION.TOP_CENTER
-        })
+    notify(msg, tipo) {
+        if (tipo=="error") {
+            toast.error(msg, {
+                position: toast.POSITION.TOP_CENTER
+            })
+        } else {
+            toast.success(msg, {
+                position: toast.POSITION.TOP_CENTER
+            })
+        }
     }
 
     componentDidMount(){
@@ -51,11 +57,10 @@ class EditContact extends React.Component {
             "email" : email
         })
         .then((response) => {
-            this.notify("Atualizado!")
-            console.log(response)
+            this.notify("Atualizado!", "sucess")
         })
         .catch((error) => {
-            console.log(error)
+            this.notify(String(error), "error")
         })
         event.preventDefault()
     }
