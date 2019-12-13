@@ -86,7 +86,7 @@ class Contact extends React.Component {
 
     render() {
         const { data } = this.state
-
+        
         return (
             <div>
                 <Row style={{padding: '1rem'}}>
@@ -140,6 +140,10 @@ class Contact extends React.Component {
                                         </td>
                                     </tr>
                                 ))}
+                                {!data.length &&
+                                <tr>
+                                    <td colSpan="5">Nenhum registro foi encontrado.</td>
+                                </tr>}
                             </tbody>
                         </Table>
                     </Col>
