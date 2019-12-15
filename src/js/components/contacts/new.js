@@ -12,7 +12,6 @@ import 'react-toastify/dist/ReactToastify.css'
 import { Link } from 'react-router-dom'
 import InputMask from 'react-input-mask'
 
-
 class NewContact extends React.Component {
 
     constructor(props){

@@ -149,7 +149,7 @@ class Contact extends React.Component {
                                                 <FaPen />
                                             </Button>
 
-                                            <Button variant="link" target="_blank" href={`${WHATSAPP_URL}${row.mobile}`}>
+                                            <Button variant="link" target="_blank" href={`/contacting?id=${row.id}&url=${WHATSAPP_URL}${row.mobile}`}>
                                                 <FaWhatsapp />
                                             </Button>
 

@@ -8,6 +8,7 @@ import  Contacts from '../contacts'
 import NewContact from '../contacts/new'
 import EditContact from '../contacts/edit'
 import { FaBookOpen } from 'react-icons/fa'
+import Contacting from '../contacts/contacting'
 
 import {    
     BrowserRouter as Router,
@@ -28,6 +29,9 @@ const MainContent = () => (
                 </Route>
                 <Route exact path="/contacts/new">
                     <NewContact />
+                </Route>
+                <Route exact path="/contacting">
+                    <Contacting />
                 </Route>
                 <Route exact path="/">
                     <Contacts />
