@@ -10,6 +10,8 @@ import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { Link } from 'react-router-dom'
+import InputMask from 'react-input-mask'
+
 
 class NewContact extends React.Component {
 
@@ -107,12 +109,14 @@ class NewContact extends React.Component {
                             </Form.Group>
 
                             <Form.Group as={Row} controlId="iptCtrlCelular">
-                                <Form.Label column sm={2}>Celular </Form.Label>
+                                <Form.Label column sm={2}> Celular </Form.Label>
                                 <Col sm={10}>
-                                    <Form.Control
-                                        type="text"
-                                        name="mobile"
-                                        value={this.state.mobile}
+                                    <InputMask
+                                        className="form-control" 
+                                        mask="+55 99 99999-9999" 
+                                        maskChar=" " 
+                                        name="mobile" 
+                                        value={this.state.mobile} 
                                         onChange={this.handleChange} />
                                 </Col>
                             </Form.Group>
