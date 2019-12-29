@@ -38,17 +38,6 @@ class NewContact extends React.Component {
         }
     }
 
-    datenow() {
-        let today = new Date()
-        let dd = String(today.getDate()).padStart(2, '0')
-        let mm = String(today.getMonth() + 1).padStart(2, '0')
-        let hh = String(today.getHours()).padStart(2, '0')
-        let min = String(today.getMinutes()).padStart(2, '0')
-        let sec = String(today.getSeconds()).padStart(2, '0')
-        let yyyy = today.getFullYear()
-        return `${yyyy}-${mm}-${dd} ${hh}:${min}:${sec}`
-    }
-
     resetFields() {
         this.setState({
             name: '',
@@ -69,8 +58,7 @@ class NewContact extends React.Component {
             "name": name,
             "activity" : activity,
             "mobile" : mobile,
-            "email" : email,
-            "last_contact": this.datenow(),
+            "email" : email,            
             "status": true
         })
         .then((response) => {
@@ -78,7 +66,15 @@ class NewContact extends React.Component {
             this.notify("Adicionado!", "sucess")
         })
         .catch((error) => {
-            this.notify(String(error), "error")
+            if("response" in error.request){
+                let errors = JSON.parse(error.request.response)
+                let txtError = ''
+                for(let erro in errors) {
+                    txtError += `<li>{errors[erro]}</li>`;
+                }                                
+                this.notify(txtError, "error")
+            }
+            
             
         })
         event.preventDefault()
